@@ -7,12 +7,8 @@ import utils as utils
 import re
 
 sg.init()
-gradius  = utils.find_window('.*MARIO.*')
-hier     = utils.get_hier(gradius)
-
-for window in hier:
-    print(utils.get_geometry(window))
-
+window = utils.find_window('.*MARIO.*')
+hier   = utils.get_hier(window)
 
 geometry = utils.get_geometry(hier[2])
 
@@ -23,6 +19,6 @@ geometry['y'] += geometry_relative['y']
 geometry['w'] = geometry_relative['w']
 geometry['h'] = geometry_relative['h']
 
-im       = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['h'])
+im = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['h'])
 im.save('./output/test.png', 'PNG')
 sg.destroy()
