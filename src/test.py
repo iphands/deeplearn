@@ -2,6 +2,7 @@
 
 import tensorflow as tf
 import screengrab as sg
+import readmem    as rm
 import json
 import utils as utils
 import re
@@ -30,5 +31,7 @@ with open('/proc/{}/maps'.format(pid)) as f:
     for line in  f.readlines():
         if '[heap]' in line:
             heap_start = line.split('-')[0]
+            heap_start = int(heap_start, 16)
 
-
+rank = rm.get_player_rank(int(pid), heap_start)
+print('Current rank is: {}'.format(rank))
