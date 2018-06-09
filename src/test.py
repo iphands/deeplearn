@@ -8,6 +8,7 @@ import utils as utils
 import re
 import sys
 import time
+import timeit
 
 sg.init()
 window   = utils.find_window('.*Mkart.*')
@@ -33,7 +34,6 @@ with open('/proc/{}/maps'.format(pid)) as f:
         if '[heap]' in line:
             heap_start = line.split('-')[0]
             heap_start = int(heap_start, 16)
-
 
 previous_rank = None
 while True:
