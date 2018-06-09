@@ -7,6 +7,7 @@ import json
 import utils as utils
 import re
 import sys
+import time
 
 sg.init()
 window   = utils.find_window('.*Mkart.*')
@@ -24,7 +25,7 @@ im = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['
 im.save('./output/test.png', 'PNG')
 sg.destroy()
 
-pid = sys.argv[1]
+pid = int(sys.argv[1])
 heap_start = None
 
 with open('/proc/{}/maps'.format(pid)) as f:
@@ -33,5 +34,11 @@ with open('/proc/{}/maps'.format(pid)) as f:
             heap_start = line.split('-')[0]
             heap_start = int(heap_start, 16)
 
-rank = rm.get_player_rank(int(pid), heap_start)
-print('Current rank is: {}'.format(rank))
+
+previous_rank = None
+while True:
+    rank = rm.get_player_rank(pid, heap_start)
+    if rank != previous_rank and rank > 0 and rank < 9:
+        print('Current rank is: {}'.format(rank))
+    previous_rank = rank
+    time.sleep(0.00001)

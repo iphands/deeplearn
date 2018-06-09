@@ -6,7 +6,7 @@
 
 #define MAGIC_PATTERN 0x3c8f3c8f3c8f3c8f
 #define MAGIC_OFFSET  0x0440
-#define DEBUG 1
+#define DEBUG 0
 #define debug(fmt, ...) do { if (DEBUG) fprintf(stderr, fmt, __VA_ARGS__); } while (0)
 
 int get_player_rank(const int pid, const long address) {
