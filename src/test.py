@@ -7,9 +7,8 @@ import utils as utils
 import re
 
 sg.init()
-window = utils.find_window('.*MARIO.*')
-hier   = utils.get_hier(window)
-
+window   = utils.find_window('.*MARIO.*')
+hier     = utils.get_hier(window)
 geometry = utils.get_geometry(hier[2])
 
 # remove kwin window decoration
@@ -20,5 +19,5 @@ geometry['w'] = geometry_relative['w']
 geometry['h'] = geometry_relative['h']
 
 im = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['h'])
-im.save('./output/test.png', 'PNG')
+im.save('./output/test{}.png'.format(x), 'PNG')
 sg.destroy()

@@ -73,22 +73,21 @@ void get_image_grey(const int window_origin_x,
                             AllPlanes,
                             ZPixmap);
 
-  unsigned long red_mask   = image->red_mask;
-  unsigned long green_mask = image->green_mask;
-  unsigned long blue_mask  = image->blue_mask;
+  unsigned int counter = 0;
 
-  for (int y = 0, counter = 0; y < window_height; y++) {
+  /* #pragma omp parallel for collapse(2) */
+  for (int y = 0; y < window_height; y++) {
     for (int x = 0; x < window_width; x++) {
       unsigned long pixel = XGetPixel(image, x, y);
-      unsigned char blue  = (pixel & blue_mask);
-      unsigned char green = (pixel & green_mask) >> 8;
-      unsigned char red   = (pixel & red_mask)   >> 16;
+      unsigned char blue  = (pixel & image->blue_mask);
+      unsigned char green = (pixel & image->green_mask) >> 8;
+      unsigned char red   = (pixel & image->red_mask)   >> 16;
       unsigned char val   = (red + blue + green) / 3;
-
       data[counter] = val;
       counter += 1;
     }
   }
+
 
   XDestroyImage(image);
 }
