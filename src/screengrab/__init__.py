@@ -20,7 +20,10 @@ def grab_screen_rgb(x, y, w, h):
 def grab_screen_grey(x, y, w, h):
     result = (ctypes.c_ubyte * (w * h))()
     screen.get_image_grey(x, y, w, h, result)
-    return Image.frombuffer('L', (w, h), result, 'raw', 'L', 0, 1)
+    return result
+
+def get_image_grey(w, h, array):
+    return Image.frombuffer('L', (w, h), array, 'raw', 'L', 0, 1)
 
 if __name__ == '__main__':
     init()

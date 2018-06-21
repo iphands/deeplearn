@@ -12,8 +12,9 @@
 int get_player_rank(const int pid, const long address) {
   debug("get_player_rank: start_address 0x%lx\n", address);
 
-  ptrace(PTRACE_ATTACH, pid, NULL, NULL);
+  int ret = ptrace(PTRACE_ATTACH, pid, NULL, NULL);
   wait(NULL);
+  debug("get_player_rank: ptrace attach return %d\n", ret);
 
   long byte = ptrace(PTRACE_PEEKTEXT, pid, address, 4);
   long player_rank = (byte + 2) / 2;
@@ -27,8 +28,9 @@ int get_player_rank(const int pid, const long address) {
 long find_player_rank_address(const int pid, const long heap_start) {
   debug("find_magic_location: using pid %d with heap at 0x%lx\n", pid, heap_start);
 
-  ptrace(PTRACE_ATTACH, pid, NULL, NULL);
+  int ret = ptrace(PTRACE_ATTACH, pid, NULL, NULL);
   wait(NULL);
+  debug("find_player_rank_address: ptrace attach return %d\n", ret);
 
   long byte;
   long loc;

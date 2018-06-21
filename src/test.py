@@ -22,9 +22,9 @@ geometry['y'] += geometry_relative['y']
 geometry['w'] = geometry_relative['w']
 geometry['h'] = geometry_relative['h']
 
-im = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['h'])
-im.save('./output/test.png', 'PNG')
-sg.destroy()
+# im = sg.grab_screen_grey(geometry['x'], geometry['y'], geometry['w'], geometry['h'])
+# im.save('./output/test.png', 'PNG')
+# sg.destroy()
 
 pid = int(sys.argv[1])
 heap_start = None
@@ -37,12 +37,14 @@ with open('/proc/{}/maps'.format(pid)) as f:
 
 previous_rank = None
 
+rank = rm.get_player_rank(pid, heap_start)
 # while True:
 #     rank = rm.get_player_rank(pid, heap_start)
+#     print('Current rank is: {}'.format(rank))
 #     if rank != previous_rank and rank > 0 and rank < 9:
 #         print('Current rank is: {}'.format(rank))
 #     previous_rank = rank
-#     time.sleep(0.00001)
+#     time.sleep(0.01)
 
 
 

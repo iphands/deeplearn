@@ -1,20 +1,46 @@
 #include <stdio.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <string.h>
+#include <assert.h>
 
-void getScreen(const int, const int, const int, const int, unsigned char *);
+void set_root();
 void init();
 
 Display *display = NULL;
-Window root = NULL;
-
-int main(int argc, char* argv[]) {
-  printf("SCREEN TEST\n");
-}
+Window  root;
 
 void init() {
-   display = XOpenDisplay(NULL);
-   root = DefaultRootWindow(display);
+  display = XOpenDisplay(NULL);
+  root = DefaultRootWindow(display);
+}
+
+void _testing_set_root() {
+  Window root_return;
+  Window parent_return;
+  Window *children_return;
+  unsigned int nchildren_return;
+  XQueryTree(display, root, &root_return, &parent_return, &children_return, &nchildren_return);
+  printf("Test root: 0x%0x\n", root);
+  printf("Test     : %0x\n", nchildren_return);
+
+  for (unsigned int i = 0; i < nchildren_return; i++) {
+    Window child = children_return[i];
+    char * name;
+
+    XFetchName(display, child, &name);
+
+    if (name && (strncmp("NAME", name, 160) == 0)) {
+      printf("Child[%d] = 0x%0x\n", i, child);
+      printf("%s\n", name);
+      root = child;
+    }
+
+    XFree(name);
+  }
+
+  XFree(children_return);
 }
 
 void destroy() {
@@ -23,10 +49,10 @@ void destroy() {
 }
 
 void get_image_rgb(const int window_origin_x,
-               const int window_origin_y,
-               const int window_width,
-               const int window_height,
-               unsigned char * data) {
+                   const int window_origin_y,
+                   const int window_width,
+                   const int window_height,
+                   unsigned char * data) {
 
   XImage *image = XGetImage(display,
                             root,
@@ -59,11 +85,13 @@ void get_image_rgb(const int window_origin_x,
 }
 
 void get_image_grey(const int window_origin_x,
-               const int window_origin_y,
-               const int window_width,
-               const int window_height,
-               unsigned char * data) {
+                    const int window_origin_y,
+                    const int window_width,
+                    const int window_height,
+                    unsigned char * data) {
 
+
+  XMapRaised(display, root);
   XImage *image = XGetImage(display,
                             root,
                             window_origin_x,
@@ -87,7 +115,6 @@ void get_image_grey(const int window_origin_x,
       counter += 1;
     }
   }
-
 
   XDestroyImage(image);
 }
