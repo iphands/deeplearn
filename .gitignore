@@ -2,4 +2,7 @@
 *.so
 *.pyc
 *.bin
+src/test2.py
+deeplearnvenv/
+output/
 __pycache__
