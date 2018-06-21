@@ -1,12 +1,21 @@
-.PHONY: all
+.PHONY: all clean
+.DEFAULT_GOAL := all
 
-all: ./src/scgreengrab/screen.so ./src/readmem/readmem.so
+CFLAGS=-march=native -O3 -ffast-math
 
-./src/scgreengrab/screen.so: ./src/screengrab/screen.c
-	gcc -march=native -shared -O3 -ffast-math -lX11 -fPIC -Wl,-soname,screen -o ./src/screengrab/screen.so ./src/screengrab/screen.c
+clean:
+	rm -f \
+	./src/screengrab/screen.so \
+	./src/readmem/readmem.so \
+	./src/utils/monitor.bin
+
+all: ./src/screengrab/screen.so ./src/readmem/readmem.so ./src/utils/monitor.bin
+
+./src/utils/monitor.bin: ./src/utils/monitor.c
+	gcc ${CFLAGS} -lX11 -o ./src/utils/monitor.bin ./src/utils/monitor.c
+
+./src/screengrab/screen.so: ./src/screengrab/screen.c
+	gcc ${CFLAGS} -shared -lX11 -fPIC -Wl,-soname,screen -o ./src/screengrab/screen.so ./src/screengrab/screen.c
 
 ./src/readmem/readmem.so: ./src/readmem/readmem.c
-	gcc -march=native -shared -O3 -ffast-math -lX11 -fPIC -Wl,-soname,screen -o ./src/readmem/readmem.so ./src/readmem/readmem.c
-
-./output/screen: ./src/screengrab/screen.c
-	gcc -Wall -ggdb -lX11 -fPIC -o ./output/screen ./src/screengrab/screen.c
+	gcc ${CFLAGS} -shared -lX11 -fPIC -Wl,-soname,screen -o ./src/readmem/readmem.so ./src/readmem/readmem.c
