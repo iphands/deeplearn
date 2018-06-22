@@ -8,8 +8,8 @@ timeout = 0.1
 keyboard = Controller()
 
 valid_keys = {
-    'up':    'up',
-    'down':  'down',
+    # 'up':    'up',
+    # 'down':  'down',
     'left':  'left',
     'right': 'right',
 }
@@ -17,8 +17,8 @@ valid_keys = {
 valid_chars = {
     'l':     'l',
     'a':     'a',
-    # 'b':     'b',
-    'y':     'y'
+    'b':     'b',
+    # 'y':     'y'
 }
 
 lst = []
