@@ -1,7 +1,7 @@
 from agents            import Learner
 from environments.kart import Env
 
-env   = Env(done_steps = 100)
+env   = Env(pid = sys.argv[1])
 agent = Learner(env)
 
 for episode in range(0, 1000):
