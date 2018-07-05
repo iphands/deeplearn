@@ -22,7 +22,7 @@ int main () {
     XImage * img = XGetImage(snoop_dpy, snoop_root, 0, 0, w, h, AllPlanes, ZPixmap);
     XPutImage(dpy, root, gc, img, 0, 0, 0, 0, img->width, img->height );
     XDestroyImage(img);
-    usleep(1000 * 2);
+    usleep(1000 * 33);
   }
 
   XCloseDisplay (dpy);

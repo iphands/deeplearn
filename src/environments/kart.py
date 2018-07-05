@@ -85,14 +85,20 @@ class Env():
         if not rank or not previous_rank: return 0
 
         if rank == previous_rank:
-            return 4 - rank
+            return 1
         if rank < previous_rank:
             return 10
         if rank > previous_rank:
-            return -10
+            return -100
 
     def get_reward(self, rank, previous_rank):
-        return 0
+        b_mod = 0
+
+        if 'b' in input_wrapper.get_pressed():
+            # give extra points for mashing B
+            b_mod = 1
+
+        return b_mod + self.get_position_reward(rank, previous_rank)
 
     def get_screen(self):
         return np.array(sg.grab_screen_grey(

@@ -26,4 +26,6 @@ for episode in range(0, 1000):
         state  = next_state
 
     print("Episode #{} Score: {}".format(episode, score))
+    print("Training...")
     agent.train(128)
+    print("Done")
