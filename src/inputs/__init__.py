@@ -15,18 +15,20 @@ valid_keys = {
 }
 
 valid_chars = {
-    'l':     'l',
-    'a':     'a',
-    'b':     'b',
+    #'l':     False,
+    #'a':     False,
+    'b':     False,
     # 'y':     'y'
 }
+
+
 
 lst = []
 release_lst = []
 
 for (k,v) in valid_chars.items():
-    exec('def press_{}():   keyboard.press("{}")'.format(k, v))
-    exec('def release_{}(): keyboard.release("{}")'.format(k, v))
+    exec('def press_{}():   valid_chars["{}"] = True  ; keyboard.press("{}")'.format(k, k, k))
+    exec('def release_{}(): valid_chars["{}"] = False ; keyboard.release("{}")'.format(k, k, k))
     exec('lst.append(press_{})'.format(k))
     exec('lst.append(release_{})'.format(k))
     exec('release_lst.append(release_{})'.format(k))
@@ -43,6 +45,13 @@ def focus(geometry):
     mouse.Controller().press(mouse.Button.left)
     time.sleep(0.100)
     mouse.Controller().release(mouse.Button.left)
+
+def get_pressed():
+    pressed = {}
+    for (k,v) in valid_chars.items():
+        if (v):
+            pressed[k] = True
+    return pressed
 
 def get_keyboard():
     return keyboard
