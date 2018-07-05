@@ -1,5 +1,5 @@
-from agents                     import Learner
-from environments.stupid_simple import Env
+from agents            import Learner
+from environments.kart import Env
 
 env   = Env(done_steps = 100)
 agent = Learner(env)
