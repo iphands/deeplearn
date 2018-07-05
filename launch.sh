@@ -11,6 +11,7 @@ PID=$(pgrep -P `ps aux | fgrep xvfb-run | fgrep 99 | awk '{print $2}'` snes)
 echo "Using pid: $PID"
 
 source deeplearnvenv/bin/activate
-python src/test2.py $PID
+python src/kart.py $PID
+# python src/test2.py $PID
 
 wait %1

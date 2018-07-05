@@ -32,10 +32,10 @@ long find_player_rank_address(const int pid, const long heap_start) {
   wait(NULL);
   debug("find_player_rank_address: ptrace attach return %d\n", ret);
 
-  long byte;
   long loc;
 
   for(long i = 0; i < 0xffffff; i += 16) {
+    long byte;
     loc = heap_start + i;
     byte = ptrace(PTRACE_PEEKTEXT, pid, loc, 16);
     if (byte == MAGIC_PATTERN) {
