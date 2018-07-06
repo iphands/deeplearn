@@ -9,7 +9,7 @@ class Learner():
         self.env               = env
 
         self.gamma             = 0.95
-        self.exploration_rate  = 0.95
+        self.exploration_rate  = 0.75
         self.exploration_min   = 0.01
         self.exploration_decay = 0.25
 
