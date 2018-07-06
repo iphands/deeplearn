@@ -65,6 +65,7 @@ class Env():
         input_wrapper.focus(self.geometry)
         input_wrapper.release()
         input_wrapper.reset()
+        time.sleep(0.25)
         self.previous_rank = self.rank = 5 # TODO magic number
 
     def get_done(self):
