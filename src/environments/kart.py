@@ -9,14 +9,12 @@ import time
 class ActionSpace():
     def __init__(self):
         self.size = input_wrapper.get_input_count()
-        pass
 
     def get_size(self):
         return self.size
 
     def sample(self):
-        rand = np.random.randint(0, self.size)
-        return rand
+        return np.random.randint(0, self.size)
 
 class Env():
     def __init__(self, done_steps = 100, pid = None):
@@ -100,12 +98,15 @@ class Env():
 
         return b_mod + self.get_position_reward(rank, previous_rank)
 
-    def get_screen(self):
-        return np.array(sg.grab_screen_grey(
+    def get_pixel_data(self):
+        return sg.grab_screen_grey(
             self.geometry['x'],
             self.geometry['y'],
             self.geometry['w'],
-            self.geometry['h']))
+            self.geometry['h'])
+
+    def get_screen(self):
+        return np.reshape(self.get_pixel_data(), [self.geometry['w'], self.geometry['h'], 1])
 
     def do_action(self, action):
         input_wrapper.do_input(action)
