@@ -25,7 +25,8 @@ class KartModel():
         self.instance = model
 
     def reshape(self, data):
-        return np.array([data])
+        return data
+        # return np.array([data])
 
 class StupidSimpleTestModel():
     def __init__(self, input_shape, action_size):
