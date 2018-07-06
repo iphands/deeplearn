@@ -13,7 +13,7 @@ class Learner():
         self.exploration_min   = 0.01
         self.exploration_decay = 0.25
 
-        self.memory            = deque(maxlen = (1024*1024))
+        self.memory            = deque(maxlen = (1024 * 100))
 
     def get_action(self, state):
         if state is None: return # skip if this is the first

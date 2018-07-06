@@ -21,8 +21,6 @@ valid_chars = {
     # 'y':     'y'
 }
 
-
-
 lst = []
 release_lst = []
 

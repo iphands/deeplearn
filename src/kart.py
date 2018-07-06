@@ -1,4 +1,5 @@
 import sys
+import time
 import numpy as np
 
 from agents            import Learner
@@ -18,13 +19,15 @@ for episode in range(0, 1000):
     score = 0
 
     state_buffer = deque(maxlen = steps)
-    for i in range(0, 16):
+    for i in range(0, steps):
         next_state, reward, done, info = env.step(0)
         state_buffer.append(next_state)
 
-    print("buffer filled")
 
+    i = 0
     while not env.done:
+        t = time.time()
+
         # decide action
         action = agent.get_action(state)
 
@@ -35,11 +38,19 @@ for episode in range(0, 1000):
 
         # remember and store data
         if not done:
-        # if not done and reward > 0:
             agent.remember(state, action, reward, next_state, done)
 
         score += reward
         state  = next_state
 
-    print("Episode #{} Score: {}".format(episode, score))
-    agent.train(128)
+        # close to const delay
+        e = (time.time() - t)
+        sleep = (0.01666 - e)
+        if sleep > 0:
+            time.sleep(sleep)
+        else:
+            print("No skip! {}".format(e))
+        i += 1
+
+    print("Episode #{} Score: {} Ticks {}".format(episode, score, i))
+    agent.train(1024)
