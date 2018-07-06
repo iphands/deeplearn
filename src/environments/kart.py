@@ -73,12 +73,11 @@ class Env():
 
     def set_rank(self):
         self.previous_rank = self.rank
-        rank = rm.get_player_rank(self.pid, self.heap_start)
+        rank  = rm.get_player_rank(self.pid, self.heap_start)
+        rank &= 0xff
         if rank > 0 and rank < 9:
             self.rank = rank
             return
-        time.sleep(0.033) # sleep for one frame
-        return
 
     def set_done(self):
         self.done = self.rank == 8
@@ -98,7 +97,7 @@ class Env():
 
         if 'b' in input_wrapper.get_pressed():
             # give extra points for mashing B
-            b_mod = 0.25
+            b_mod = 1
 
         return b_mod + self.get_position_reward(rank, previous_rank)
 
