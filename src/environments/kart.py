@@ -108,6 +108,12 @@ class Env():
             self.geometry['w'],
             self.geometry['h'])
 
+    def get_action_size(self):
+        return self.action_space.get_size()
+
+    def get_input_shape(self):
+        return self.get_screen().shape
+
     def get_screen(self):
         return np.reshape(self.get_pixel_data(), [self.geometry['w'], self.geometry['h'], 1])
 

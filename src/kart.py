@@ -1,9 +1,11 @@
 import sys
 from agents            import Learner
 from environments.kart import Env
+from models            import KartModel
 
 env   = Env(pid = sys.argv[1])
-agent = Learner(env)
+model = KartModel(env.get_input_shape(), env.get_action_size())
+agent = Learner(env, model)
 
 for episode in range(0, 1000):
     env.reset()

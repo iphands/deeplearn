@@ -16,7 +16,10 @@ class Env():
         self.done_counter = 0
         self.max_steps    = done_steps
         self.done         = False
-        self.action_space = ActionSpace(range(0, 512))
+        self.action_space = ActionSpace(range(0, 4))
+
+    def get_input_shape(self):
+        return (1,)
 
     def reset(self):
         self.done = False
