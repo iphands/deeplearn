@@ -62,7 +62,10 @@ class Env():
 
     def reset(self):
         self.done = False
+        input_wrapper.focus(self.geometry)
+        input_wrapper.release()
         input_wrapper.reset()
+        self.previous_rank = self.rank = 5 # TODO magic number
 
     def get_done(self):
         return self.get_rank() == 8
@@ -94,7 +97,7 @@ class Env():
 
         if 'b' in input_wrapper.get_pressed():
             # give extra points for mashing B
-            b_mod = 1
+            b_mod = 0.25
 
         return b_mod + self.get_position_reward(rank, previous_rank)
 
