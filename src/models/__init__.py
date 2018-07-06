@@ -6,8 +6,6 @@ from keras.layers import Dense, Flatten, Conv2D
 
 class KartModel():
     def __init__(self, input_shape, action_size):
-        print(action_size)
-        print(input_shape)
         model = Sequential()
 
         # Convolutional layers
